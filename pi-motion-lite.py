@@ -15,6 +15,7 @@ threshold = 10     # How Much a pixel has to change
 sensitivity = 200  # How Many pixels need to change for motion detection
 nightShut = 5.5    # seconds Night shutter Exposure Time default = 5.5  Do not exceed 6 since camera may lock up
 nightISO = 800
+destinationDirectory = "/home/pi/box/"
 
 testWidth = 100
 testHeight = 75
@@ -29,8 +30,12 @@ def userMotionCode():
     # Eg Notify or activate something.
     # User code goes here
 
-    msgStr = "Motion Found So Do Something ..."
-    showMessage("userMotionCode",msgStr)  
+    msgStr = "Motion Found..."
+    showMessage("userMotionCode", msgStr)
+    with picamera.PiCamera() as camera:
+        camera.resolution = (1024, 768)
+        camera.start_preview()
+        camera.capture(destinationDirectory + datetime.datetime.now().strftime('%Y-%m-%d_%H%M%S') + '-cam.jpg')
     return   
 
 def showTime():
