@@ -28,22 +28,22 @@ def userMotionCode():
     # Users can put code here that needs to be run prior to taking motion capture images
     # Eg Notify or activate something.
     # User code goes here
-    
+
     msgStr = "Motion Found So Do Something ..."
     showMessage("userMotionCode",msgStr)  
     return   
-    
+
 def showTime():
     rightNow = datetime.datetime.now()
     currentTime = "%04d%02d%02d-%02d:%02d:%02d" % (rightNow.year, rightNow.month, rightNow.day, rightNow.hour, rightNow.minute, rightNow.second)
     return currentTime    
- 
+
 def showMessage(functionName, messageStr):
     if verbose:
         now = showTime()
         print ("%s %s - %s " % (now, functionName, messageStr))
     return
- 
+
 def checkForMotion(data1, data2):
     # Find motion between two data streams based on sensitivity and threshold
     motionDetected = False
@@ -63,7 +63,7 @@ def checkForMotion(data1, data2):
     if pixChanges > sensitivity:
         motionDetected = True
     return motionDetected  
-  
+
 def getStreamImage(daymode):
     # Capture an image stream to memory based on daymode
     isDay = daymode
@@ -75,7 +75,7 @@ def getStreamImage(daymode):
                 camera.exposure_mode = 'auto'
                 camera.awb_mode = 'auto' 
             else:
-                # Take Low Light image            
+                # Take Low Light image
                 # Set a framerate of 1/6fps, then set shutter
                 # speed to 6s and ISO to 800
                 camera.framerate = Fraction(1, 6)
@@ -87,7 +87,7 @@ def getStreamImage(daymode):
                 time.sleep( nightSleepSec )
             camera.capture(stream, format='rgb')
             return stream.array
-            
+
 def Main():
     dayTime = True
     msgStr = "Checking for Motion dayTime=%s threshold=%i sensitivity=%i" % ( dayTime, threshold, sensitivity)
@@ -99,7 +99,7 @@ def Main():
             userMotionCode()
         stream1 = stream2
     return
-     
+
 if __name__ == '__main__':
     try:
         Main()
@@ -109,5 +109,3 @@ if __name__ == '__main__':
         print("  Exiting Program")
         print("+++++++++++++++++++")
         print("")
-               
-            
