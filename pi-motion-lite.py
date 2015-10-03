@@ -97,7 +97,7 @@ def Main():
         stream2 = getStreamImage(dayTime)
         if checkForMotion(stream1, stream2):
             userMotionCode()
-        stream2 = stream1   
+        stream1 = stream2
     return
      
 if __name__ == '__main__':
